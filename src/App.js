@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import Users from './component/User/Users';
 
 function App() {
@@ -11,13 +11,12 @@ function App() {
     fetch ('https://jsonplaceholder.typicode.com/users')
     .then(res => res.json())
     .then(data => {setUsers(data)
-    const a = data.map(user => user)
-    console.log(a)
+    // const a = data.map(user => user)
+    // console.log(a)
   });
   },[])
 
   const handleAddClick = (name) =>{
-     //console.log('handleAddClick',name)
     const newCart = [...cart , name ]
     setCart(newCart);
   }
@@ -25,7 +24,13 @@ function App() {
     <div className="App">
       <h1>Total User:{users.length}</h1>
       <h2>Count User:{cart.length}</h2>
-      <h2>User Name: {cart} </h2>
+      <h1>Add Name </h1>{
+        <ul>
+          {
+            cart.map(m => <li>{m}</li>)
+          }
+        </ul>
+        } 
         {
           users.map(user => <Users handleAddClick={handleAddClick} key={user.id} user={user}></Users>)
         }
